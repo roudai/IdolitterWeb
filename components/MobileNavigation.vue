@@ -1,31 +1,19 @@
 <template>
   <nav class="menu animated overlay-navigation" aria-label="navigation">
     <div style="position: relative">
-      <div
-        class="menu-item d-flex flex-items-center"
-        @click="router.push('/idol')"
-      >
+      <div class="menu-item d-flex flex-items-center" @click="router.push('/idol')">
         <i-ic-baseline-person class="mr-2" />
         アイドル一覧
       </div>
-      <div
-        class="menu-item d-flex flex-items-center"
-        @click="router.push('/group')"
-      >
+      <div class="menu-item d-flex flex-items-center" @click="router.push('/group')">
         <i-ic-baseline-groups class="mr-2" />
         グループ一覧
       </div>
-      <div
-        class="menu-item d-flex flex-items-center"
-        @click="router.push('/ranking')"
-      >
+      <div class="menu-item d-flex flex-items-center" @click="router.push('/ranking')">
         <i-ic-baseline-align-horizontal-left class="mr-2" />
         ランキング
       </div>
-      <div
-        class="menu-item d-flex flex-items-center"
-        @click="router.push('/history')"
-      >
+      <div class="menu-item d-flex flex-items-center" @click="router.push('/history')">
         <i-ic-round-history-edu class="mr-2" />
         履歴
       </div>

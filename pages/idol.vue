@@ -28,17 +28,7 @@ type User = { [key: string]: string | number }
 const output: { [key: string]: User } = idolData.values.reduce(
   (
     acc: { [key: string]: User },
-    [
-      group,
-      lastName,
-      firstName,
-      lastYomi,
-      firstYomi,
-      TwitterID,
-      _profile,
-      follower,
-      tweet,
-    ],
+    [group, lastName, firstName, lastYomi, firstYomi, TwitterID, _profile, follower, tweet],
     index
   ) => {
     acc[index] = {
@@ -90,15 +80,8 @@ const currentPage = (page: number) => {
           アイドル一覧
         </caption>
         <thead>
-          <tr
-            v-for="headerGroup in table.getHeaderGroups()"
-            :key="headerGroup.id"
-          >
-            <th
-              v-for="header in headerGroup.headers"
-              :key="header.id"
-              :colSpan="header.colSpan"
-            >
+          <tr v-for="headerGroup in table.getHeaderGroups()" :key="headerGroup.id">
+            <th v-for="header in headerGroup.headers" :key="header.id" :colSpan="header.colSpan">
               <FlexRender
                 v-if="!header.isPlaceholder"
                 :render="header.column.columnDef.header"
@@ -110,10 +93,7 @@ const currentPage = (page: number) => {
         <tbody>
           <tr v-for="row in table.getRowModel().rows" :key="row.id">
             <td v-for="cell in row.getVisibleCells()" :key="cell.id">
-              <FlexRender
-                :render="cell.column.columnDef.cell"
-                :props="cell.getContext()"
-              />
+              <FlexRender :render="cell.column.columnDef.cell" :props="cell.getContext()" />
             </td>
           </tr>
         </tbody>
@@ -136,28 +116,13 @@ const currentPage = (page: number) => {
           "
         >
           <!-- 最初の3ページ、最後の3ページの以外のときの表示 -->
-          <a
-            :aria-label="`Page 1`"
-            :aria-current="currentPage(0)"
-            @click="table.setPageIndex(0)"
-            >{{ 1 }}</a
-          >
-          <span v-if="table.getState().pagination.pageIndex !== 3" class="gap"
-            >…</span
-          >
+          <a :aria-label="`Page 1`" :aria-current="currentPage(0)" @click="table.setPageIndex(0)">{{ 1 }}</a>
+          <span v-if="table.getState().pagination.pageIndex !== 3" class="gap">…</span>
           <div v-for="i in 4" :key="i">
             <a
-              :aria-label="`Page ${
-                table.getState().pagination.pageIndex + i - 2
-              }`"
-              :aria-current="
-                currentPage(table.getState().pagination.pageIndex + i - 3)
-              "
-              @click="
-                table.setPageIndex(
-                  table.getState().pagination.pageIndex + i - 3
-                )
-              "
+              :aria-label="`Page ${table.getState().pagination.pageIndex + i - 2}`"
+              :aria-current="currentPage(table.getState().pagination.pageIndex + i - 3)"
+              @click="table.setPageIndex(table.getState().pagination.pageIndex + i - 3)"
               >{{ table.getState().pagination.pageIndex + i - 2 }}</a
             >
           </div>
@@ -172,12 +137,9 @@ const currentPage = (page: number) => {
         <template v-else>
           <!-- 最初の3ページ、最後の3ページのときの表示 -->
           <div v-for="i in 3" :key="i">
-            <a
-              :aria-label="`Page ${i}`"
-              :aria-current="currentPage(i - 1)"
-              @click="table.setPageIndex(i - 1)"
-              >{{ i }}</a
-            >
+            <a :aria-label="`Page ${i}`" :aria-current="currentPage(i - 1)" @click="table.setPageIndex(i - 1)">{{
+              i
+            }}</a>
           </div>
           <span class="gap">…</span>
           <div v-for="(offset, index) in [2, 1, 0]" :key="index">

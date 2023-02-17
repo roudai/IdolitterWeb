@@ -21,10 +21,7 @@
               :class="{ 'color-bg-accent': themeStore.theme === 'light' }"
               @click="changeTheme('light')"
             >
-              <i-ic-round-light-mode
-                class="mr-2"
-                style="width: 15px; height: 15px"
-              />
+              <i-ic-round-light-mode class="mr-2" style="width: 15px; height: 15px" />
               Light
             </button>
             <button
@@ -33,10 +30,7 @@
               :class="{ 'color-bg-accent': themeStore.theme === 'dark' }"
               @click="changeTheme('dark')"
             >
-              <i-ic-round-dark-mode
-                class="mr-2"
-                style="width: 15px; height: 15px"
-              />
+              <i-ic-round-dark-mode class="mr-2" style="width: 15px; height: 15px" />
               Dark
             </button>
             <button
@@ -45,10 +39,7 @@
               :class="{ 'color-bg-accent': themeStore.theme === 'auto' }"
               @click="changeTheme('auto')"
             >
-              <i-ic-baseline-desktop-mac
-                class="mr-2"
-                style="width: 15px; height: 15px"
-              />
+              <i-ic-baseline-desktop-mac class="mr-2" style="width: 15px; height: 15px" />
               System
             </button>
           </div>

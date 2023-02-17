@@ -1,9 +1,5 @@
 <template>
-  <Html
-    :data-color-mode="themeStore.theme"
-    data-light-theme="light"
-    data-dark-theme="dark"
-  >
+  <Html :data-color-mode="themeStore.theme" data-light-theme="light" data-dark-theme="dark">
     <Body>
       <TheHeader />
 

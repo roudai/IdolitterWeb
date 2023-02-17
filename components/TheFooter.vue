@@ -1,7 +1,6 @@
 <template>
   <footer class="Footer">
-    <a href="https://v3.nuxtjs.org/">Nuxt3</a> +
-    <a href="https://primer.style/css/">Primer CSS</a> starter project
+    <a href="https://v3.nuxtjs.org/">Nuxt3</a> + <a href="https://primer.style/css/">Primer CSS</a> starter project
     <br />
     &copy; {{ new Date().getFullYear() }} Yumamama00 All rights reserved.
   </footer>
