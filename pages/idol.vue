@@ -6,6 +6,8 @@ import {
   ColumnDef,
   createColumnHelper,
   getPaginationRowModel,
+  SortingState,
+  getSortedRowModel,
 } from '@tanstack/vue-table'
 
 let created = ref(false)
@@ -56,12 +58,27 @@ const columns: ColumnDef<User, any>[] = [
   columnHelper.accessor('ツイート', { cell: (info) => info.getValue() }),
 ]
 
+const sorting = ref<SortingState>([])
+
+// テーブル作成
 const table = useVueTable({
   get data() {
     return userList.value
   },
   columns,
+  // 行モデル
   getCoreRowModel: getCoreRowModel(),
+  // ソート
+  state: {
+    get sorting() {
+      return sorting.value
+    },
+  },
+  onSortingChange: (updaterOrValue) => {
+    sorting.value = typeof updaterOrValue === 'function' ? updaterOrValue(sorting.value) : updaterOrValue
+  },
+  getSortedRowModel: getSortedRowModel(),
+  // ページネーション
   getPaginationRowModel: getPaginationRowModel(),
 })
 
@@ -81,12 +98,24 @@ const currentPage = (page: number) => {
         </caption>
         <thead>
           <tr v-for="headerGroup in table.getHeaderGroups()" :key="headerGroup.id">
-            <th v-for="header in headerGroup.headers" :key="header.id" :colSpan="header.colSpan">
-              <FlexRender
-                v-if="!header.isPlaceholder"
-                :render="header.column.columnDef.header"
-                :props="header.getContext()"
-              />
+            <th
+              v-for="header in headerGroup.headers"
+              :key="header.id"
+              :colSpan="header.colSpan"
+              :style="header.column.getCanSort() ? 'cursor: pointer' : ''"
+              @click="header.column.getToggleSortingHandler()?.($event)"
+            >
+              <template v-if="!header.isPlaceholder">
+                <FlexRender
+                  v-if="!header.isPlaceholder"
+                  :render="header.column.columnDef.header"
+                  :props="header.getContext()"
+                />
+                {{
+                  // ソート状態を表現
+                  { asc: ' ▲', desc: ' ▼' }[header.column.getIsSorted() as string]
+                }}
+              </template>
             </th>
           </tr>
         </thead>
