@@ -3,51 +3,31 @@
     <div style="position: relative">
       <div
         class="menu-item d-flex flex-items-center"
-        @click="router.push('/account')"
+        @click="router.push('/idol')"
       >
-        <i-ic-round-account-circle class="mr-2" />
-        Account
-      </div>
-      <div
-        class="menu-item d-flex flex-items-center flex-justify-between"
-        @click="subMenu = !subMenu"
-      >
-        <div class="d-flex flex-items-center">
-          <i-ic-round-settings class="mr-2" />
-          Setting
-        </div>
-        <i-ic-sharp-arrow-drop-down
-          v-show="!subMenu"
-          class="mr-2"
-          style="width: 18px; height: 18px"
-        />
-        <i-ic-sharp-arrow-drop-up
-          v-show="subMenu"
-          class="mr-2"
-          style="width: 18px; height: 18px"
-        />
-      </div>
-      <nav
-        v-show="subMenu"
-        class="SideNav color-bg-default border-top py-2 pl-6 animated"
-      >
-        <div class="SideNav-subItem" href="#url">Sub item 1</div>
-        <div class="SideNav-subItem" href="#url">Sub item 2</div>
-        <div class="SideNav-subItem" href="#url">Sub item 3</div>
-      </nav>
-      <div
-        class="menu-item d-flex flex-items-center"
-        @click="router.push('/emails')"
-      >
-        <i-ic-round-email class="mr-2" />
-        Emails
+        <i-ic-baseline-person class="mr-2" />
+        アイドル一覧
       </div>
       <div
         class="menu-item d-flex flex-items-center"
-        @click="router.push('/notifications')"
+        @click="router.push('/group')"
       >
-        <i-ic-round-notifications class="mr-2" />
-        Notifications
+        <i-ic-baseline-groups class="mr-2" />
+        グループ一覧
+      </div>
+      <div
+        class="menu-item d-flex flex-items-center"
+        @click="router.push('/ranking')"
+      >
+        <i-ic-baseline-align-horizontal-left class="mr-2" />
+        ランキング
+      </div>
+      <div
+        class="menu-item d-flex flex-items-center"
+        @click="router.push('/history')"
+      >
+        <i-ic-round-history-edu class="mr-2" />
+        履歴
       </div>
     </div>
   </nav>
