@@ -18,13 +18,13 @@
       @click="router.push('/')"
     >
       <img
-        src="/nuxt-logo.png"
+        src="/logo.png"
         alt="Logo"
         width="25px"
         height="25px"
         class="mr-2 mr-md-3"
       />
-      <span class="text-bold">Nuxt3 + PrimerCSS</span>
+      <span class="text-bold">アイドリッター</span>
     </div>
   </div>
 </template>

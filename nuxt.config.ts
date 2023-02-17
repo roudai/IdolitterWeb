@@ -12,17 +12,46 @@ export default defineNuxtConfig({
   // https://v3.nuxtjs.org/api/configuration/nuxt.config#app
   app: {
     head: {
-      title: 'Nuxt3 + Primer CSS Starter',
-      titleTemplate: '%s - Nuxt3 + Primer CSS Starter',
+      title: 'アイドリッター',
+      titleTemplate: '%s - 日本最大の現役アイドル情報データベース',
       meta: [
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         {
           hid: 'description',
           name: 'description',
-          content: 'Nuxt3 + Primer CSS Starter',
+          content:
+            'アイドリッターは、日本最大の現役アイドル情報データベースです。',
         },
       ],
-      link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+      link: [
+        {
+          hid: 'apple-touch-icon',
+          rel: 'apple-touch-icon',
+          sizes: '180x180',
+          href: '/apple-touch-icon.png',
+        },
+        {
+          hid: 'icon32',
+          rel: 'icon',
+          type: 'image/png',
+          sizes: '32x32',
+          href: '/favicon-32x32.png',
+        },
+        {
+          hid: 'icon16',
+          rel: 'icon',
+          type: 'image/png',
+          sizes: '16x16',
+          href: '/favicon-16x16.png',
+        },
+        { hid: 'manifest', rel: 'manifest', href: '/site.webmanifest' },
+        {
+          hid: 'mask-icon',
+          rel: 'mask-icon',
+          href: '/safari-pinned-tab.svg',
+          color: '#5bbad5',
+        },
+      ],
     },
   },
 
