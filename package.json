@@ -47,5 +47,8 @@
     "*.+(js|ts|vue)": [
       "yarn lint:fix"
     ]
+  },
+  "dependencies": {
+    "@tanstack/vue-table": "^8.7.9"
   }
 }

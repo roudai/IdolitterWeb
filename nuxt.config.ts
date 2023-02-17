@@ -3,6 +3,10 @@ import IconsResolver from 'unplugin-icons/resolver'
 import Components from 'unplugin-vue-components/vite'
 
 export default defineNuxtConfig({
+  routeRules: {
+    '/idol': { ssr: false },
+  },
+
   // https://v3.nuxtjs.org/api/configuration/nuxt.config#typescript
   typescript: {
     shim: false,
@@ -79,5 +83,13 @@ export default defineNuxtConfig({
       }),
       Icons({ compiler: 'vue3' }),
     ],
+  },
+
+  runtimeConfig: {
+    public: {
+      baseURL:
+        'https://sheets.googleapis.com/v4/spreadsheets/1U6dXI2B5EOI8f8h2t20BIVbIznLbNtDegNwHHODda_8/values/',
+      apiKey: 'AIzaSyBiIUR359_DPStoJKJUtyv6Vzyfw4BU2oY',
+    },
   },
 })
