@@ -8,6 +8,7 @@ import {
   getPaginationRowModel,
   SortingState,
   getSortedRowModel,
+  getFilteredRowModel,
 } from '@tanstack/vue-table'
 
 let created = ref(false)
@@ -26,20 +27,33 @@ const idolData: dataObject = data.value as dataObject
 idolData.values.shift()
 
 // 取得データを整形
-type User = { [key: string]: string | number }
+type User = {
+  group: string
+  lastName: string
+  firstName: string
+  firstYomi: string
+  lastYomi: string
+  TwitterID: string
+  profile: string
+  follower: number
+  tweet: number
+}
 const output: { [key: string]: User } = idolData.values.reduce(
   (
     acc: { [key: string]: User },
-    [group, lastName, firstName, lastYomi, firstYomi, TwitterID, _profile, follower, tweet],
+    [group, lastName, firstName, lastYomi, firstYomi, TwitterID, profile, follower, tweet],
     index
   ) => {
     acc[index] = {
-      グループ: group,
-      名前: lastName + ' ' + firstName,
-      読み: lastYomi + ' ' + firstYomi,
+      group,
+      lastName,
+      firstName,
+      lastYomi,
+      firstYomi,
       TwitterID,
-      フォロワー: follower,
-      ツイート: tweet,
+      profile,
+      follower: Number(follower),
+      tweet: Number(tweet),
     }
     return acc
   },
@@ -50,12 +64,12 @@ const userList = ref<User[]>(Object.values(output))
 
 const columnHelper = createColumnHelper<User>()
 const columns: ColumnDef<User, any>[] = [
-  columnHelper.accessor('グループ', { cell: (info) => info.getValue() }),
-  columnHelper.accessor('名前', { cell: (info) => info.getValue() }),
-  columnHelper.accessor('読み', { cell: (info) => info.getValue() }),
+  columnHelper.accessor('group', { header: () => 'グループ', cell: (info) => info.getValue() }),
+  columnHelper.accessor((row) => `${row.lastName} ${row.firstName}`, { id: '名前' }),
+  columnHelper.accessor((row) => `${row.lastYomi} ${row.firstYomi}`, { id: '読み' }),
   columnHelper.accessor('TwitterID', { cell: (info) => info.getValue() }),
-  columnHelper.accessor('フォロワー', { cell: (info) => info.getValue() }),
-  columnHelper.accessor('ツイート', { cell: (info) => info.getValue() }),
+  columnHelper.accessor('follower', { header: () => 'フォロワー', cell: (info) => info.getValue() }),
+  columnHelper.accessor('tweet', { header: () => 'ツイート', cell: (info) => info.getValue() }),
 ]
 
 const sorting = ref<SortingState>([])
@@ -80,6 +94,8 @@ const table = useVueTable({
   getSortedRowModel: getSortedRowModel(),
   // ページネーション
   getPaginationRowModel: getPaginationRowModel(),
+  // フィルター
+  getFilteredRowModel: getFilteredRowModel(),
 })
 
 created = ref(true)
@@ -91,6 +107,12 @@ const currentPage = (page: number) => {
 
 <template>
   <div v-if="created">
+    <input
+      class="form-control"
+      type="text"
+      value="globalFilter ?? ''"
+      @change="(value) => setGlobalFilter(String(value))"
+    />
     <div class="table-scroll">
       <table :border="1">
         <caption>
