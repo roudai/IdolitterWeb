@@ -63,14 +63,23 @@ const userList = ref<User[]>(Object.values(output))
 
 const columnHelper = createColumnHelper<User>()
 const columns: ColumnDef<User, any>[] = [
-  columnHelper.accessor('group', { header: () => 'グループ', cell: (info) => info.getValue() }),
-  columnHelper.accessor((row) => `${row.lastName} ${row.firstName}`, { id: '名前' }),
-  columnHelper.accessor((row) => `${row.lastYomi} ${row.firstYomi}`, { id: '読み' }),
+  columnHelper.accessor('group', { header: () => 'グループ', cell: (info) => info.getValue(), enableSorting: false }),
+  columnHelper.accessor((row) => `${row.lastName} ${row.firstName}`, { id: '名前', enableSorting: false }),
+  columnHelper.accessor((row) => `${row.lastYomi} ${row.firstYomi}`, { id: '読み', enableSorting: false }),
   columnHelper.accessor('TwitterID', {
     cell: (info) => h('a', { href: 'https://twitter.com/' + info.getValue(), target: '_blank' }, info.getValue()),
+    enableSorting: false,
   }),
-  columnHelper.accessor('follower', { header: () => 'フォロワー', cell: (info) => info.getValue() }),
-  columnHelper.accessor('tweet', { header: () => 'ツイート', cell: (info) => info.getValue() }),
+  columnHelper.accessor('follower', {
+    header: () => 'フォロワー',
+    cell: (info) => info.getValue(),
+    enableColumnFilter: false,
+  }),
+  columnHelper.accessor('tweet', {
+    header: () => 'ツイート',
+    cell: (info) => info.getValue(),
+    enableColumnFilter: false,
+  }),
 ]
 
 const sorting = ref<SortingState>([])
@@ -104,7 +113,6 @@ created = ref(true)
 
 <template>
   <div v-if="created">
-    <input class="form-control" type="text" value="globalFilter ?? ''" />
     <TableBody :table="table" caption="アイドル一覧" />
     <TablePagination :table="table" />
   </div>
