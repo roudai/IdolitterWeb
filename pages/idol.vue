@@ -67,7 +67,9 @@ const columns: ColumnDef<User, any>[] = [
   columnHelper.accessor('group', { header: () => 'グループ', cell: (info) => info.getValue() }),
   columnHelper.accessor((row) => `${row.lastName} ${row.firstName}`, { id: '名前' }),
   columnHelper.accessor((row) => `${row.lastYomi} ${row.firstYomi}`, { id: '読み' }),
-  columnHelper.accessor('TwitterID', { cell: (info) => info.getValue() }),
+  columnHelper.accessor('TwitterID', {
+    cell: (info) => h('a', { href: 'https://twitter.com/' + info.getValue(), target: '_blank' }, info.getValue()),
+  }),
   columnHelper.accessor('follower', { header: () => 'フォロワー', cell: (info) => info.getValue() }),
   columnHelper.accessor('tweet', { header: () => 'ツイート', cell: (info) => info.getValue() }),
 ]
@@ -107,12 +109,7 @@ const currentPage = (page: number) => {
 
 <template>
   <div v-if="created">
-    <input
-      class="form-control"
-      type="text"
-      value="globalFilter ?? ''"
-      @change="(value) => setGlobalFilter(String(value))"
-    />
+    <input class="form-control" type="text" value="globalFilter ?? ''" />
     <div class="table-scroll">
       <table :border="1">
         <caption>
