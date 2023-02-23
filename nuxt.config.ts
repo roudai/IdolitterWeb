@@ -23,8 +23,7 @@ export default defineNuxtConfig({
         {
           hid: 'description',
           name: 'description',
-          content:
-            'アイドリッターは、日本最大の現役アイドル情報データベースです。',
+          content: 'アイドリッターは、日本最大の現役アイドル情報データベースです。',
         },
       ],
       link: [
@@ -66,7 +65,7 @@ export default defineNuxtConfig({
   components: true,
 
   // build modules
-  modules: ['@pinia/nuxt', '@vueuse/nuxt', 'unplugin-icons/nuxt'],
+  modules: ['@pinia/nuxt', '@vueuse/nuxt', 'unplugin-icons/nuxt', 'nuxt-lodash'],
 
   // vueuse
   vueuse: {
@@ -87,8 +86,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      baseURL:
-        'https://sheets.googleapis.com/v4/spreadsheets/1U6dXI2B5EOI8f8h2t20BIVbIznLbNtDegNwHHODda_8/values/',
+      baseURL: 'https://sheets.googleapis.com/v4/spreadsheets/1U6dXI2B5EOI8f8h2t20BIVbIznLbNtDegNwHHODda_8/values/',
       apiKey: 'AIzaSyBiIUR359_DPStoJKJUtyv6Vzyfw4BU2oY',
     },
   },

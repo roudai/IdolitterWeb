@@ -49,6 +49,7 @@
     ]
   },
   "dependencies": {
-    "@tanstack/vue-table": "^8.7.9"
+    "@tanstack/vue-table": "^8.7.9",
+    "nuxt-lodash": "^2.4.1"
   }
 }

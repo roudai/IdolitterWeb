@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { debounce } from '@antfu/utils'
 import { FlexRender } from '@tanstack/vue-table'
 
 const props = defineProps({
@@ -7,6 +8,10 @@ const props = defineProps({
     default: null,
   },
 })
+
+const globalSearch = debounce(500, (event: Event) => {
+  props.table.setGlobalFilter((event.target as any).value)
+})
 </script>
 
 <template>
@@ -14,7 +19,7 @@ const props = defineProps({
     class="form-control input-lg mb-2"
     type="text"
     placeholder="検索"
-    @input="(event:Event) => event.target !== null ? table.setGlobalFilter((event.target as any).value) : null"
+    @input="(event:Event) => globalSearch(event)"
   />
   <div class="table-scroll">
     <table :border="1">
