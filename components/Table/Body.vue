@@ -37,14 +37,6 @@ const props = defineProps({
                 // ソート状態を表現
                 { asc: ' ▲', desc: ' ▼' }[header.column.getIsSorted() as string]
               }}
-              <!-- <div v-if="header.column.getCanFilter()">
-                <input
-                  type="text"
-                  :value="header.column.getFilterValue()"
-                  placeholder="列検索"
-                  @input="(event:Event) => event.target !== null ? header.column.setFilterValue((event.target as any).value) : null"
-                />
-              </div> -->
             </template>
           </th>
         </tr>
