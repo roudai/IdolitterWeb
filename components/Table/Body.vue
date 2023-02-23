@@ -6,21 +6,18 @@ const props = defineProps({
     type: Object,
     default: null,
   },
-  caption: {
-    type: String,
-    default: '',
-  },
 })
 </script>
 
 <template>
+  <input
+    class="form-control input-lg mb-2"
+    type="text"
+    placeholder="検索"
+    @input="(event:Event) => event.target !== null ? table.setGlobalFilter((event.target as any).value) : null"
+  />
   <div class="table-scroll">
     <table :border="1">
-      <caption>
-        {{
-          caption
-        }}
-      </caption>
       <thead>
         <tr v-for="headerGroup in table.getHeaderGroups()" :key="headerGroup.id">
           <th
@@ -40,14 +37,14 @@ const props = defineProps({
                 // ソート状態を表現
                 { asc: ' ▲', desc: ' ▼' }[header.column.getIsSorted() as string]
               }}
-              <div v-if="header.column.getCanFilter()">
+              <!-- <div v-if="header.column.getCanFilter()">
                 <input
                   type="text"
                   :value="header.column.getFilterValue()"
                   placeholder="列検索"
                   @input="(event:Event) => event.target !== null ? header.column.setFilterValue((event.target as any).value) : null"
                 />
-              </div>
+              </div> -->
             </template>
           </th>
         </tr>

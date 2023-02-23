@@ -74,11 +74,13 @@ const columns: ColumnDef<User, any>[] = [
     header: () => 'フォロワー',
     cell: (info) => info.getValue(),
     enableColumnFilter: false,
+    enableGlobalFilter: false,
   }),
   columnHelper.accessor('tweet', {
     header: () => 'ツイート',
     cell: (info) => info.getValue(),
     enableColumnFilter: false,
+    enableGlobalFilter: false,
   }),
 ]
 
@@ -113,7 +115,8 @@ created = ref(true)
 
 <template>
   <div v-if="created">
-    <TableBody :table="table" caption="アイドル一覧" />
+    <h3 class="mb-2">アイドル一覧</h3>
+    <TableBody :table="table" />
     <TablePagination :table="table" />
   </div>
 </template>
