@@ -19,3 +19,9 @@ import { useThemeStore } from '~~/stores/theme'
 
 const themeStore = useThemeStore()
 </script>
+
+<style>
+html {
+  caret-color: transparent;
+}
+</style>
