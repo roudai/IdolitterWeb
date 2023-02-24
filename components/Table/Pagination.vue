@@ -34,7 +34,7 @@ const changePerPage = () => {
         @click="table.getCanPreviousPage() ? table.previousPage() : null"
         >前</a
       >
-      <template v-if="table.getPageCount() < 6">
+      <template v-if="table.getPageCount() <= 6">
         <!-- 全ページが6以下の場合 -->
         <div v-for="i in table.getPageCount()" :key="i">
           <a :aria-label="`Page ${i}`" :aria-current="currentPage(i - 1)" @click="table.setPageIndex(i - 1)">{{ i }}</a>
