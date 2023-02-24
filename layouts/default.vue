@@ -21,7 +21,7 @@ const themeStore = useThemeStore()
 </script>
 
 <style>
-html {
+table {
   caret-color: transparent;
 }
 </style>
