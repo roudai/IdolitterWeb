@@ -92,9 +92,10 @@ const table = useVueTable({
     return userList.value
   },
   columns,
-  // 行モデル
   getCoreRowModel: getCoreRowModel(),
-  // ソート
+  getSortedRowModel: getSortedRowModel(),
+  getPaginationRowModel: getPaginationRowModel(),
+  getFilteredRowModel: getFilteredRowModel(),
   state: {
     get sorting() {
       return sorting.value
@@ -103,11 +104,6 @@ const table = useVueTable({
   onSortingChange: (updaterOrValue) => {
     sorting.value = typeof updaterOrValue === 'function' ? updaterOrValue(sorting.value) : updaterOrValue
   },
-  getSortedRowModel: getSortedRowModel(),
-  // ページネーション
-  getPaginationRowModel: getPaginationRowModel(),
-  // フィルター
-  getFilteredRowModel: getFilteredRowModel(),
 })
 
 created = ref(true)
