@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { debounce } from '@antfu/utils'
 import { FlexRender } from '@tanstack/vue-table'
 
 const props = defineProps({
@@ -8,26 +7,9 @@ const props = defineProps({
     default: null,
   },
 })
-
-const totalPages = computed(() => props.table.getPageCount())
-const randomView = () => {
-  console.log(totalPages.value)
-  props.table.setPageIndex(Math.floor(Math.random() * totalPages.value) + 1)
-}
-
-randomView()
-
-const globalSearch = debounce(250, (event: Event) => {
-  props.table.setGlobalFilter((event.target as any).value)
-})
 </script>
 
 <template>
-  <div class="mb-2">
-    <input class="form-control input-lg" type="text" placeholder="検索" @input="(event:Event) => globalSearch(event)" />
-    <button class="btn ml-3" type="button" @click="randomView">ランダム表示</button>
-  </div>
-
   <div class="table-scroll">
     <table :border="1">
       <thead>

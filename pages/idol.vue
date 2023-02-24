@@ -112,6 +112,7 @@ created = ref(true)
 <template>
   <div v-if="created">
     <h3 class="mb-2">アイドル一覧</h3>
+    <TableHead :table="table" />
     <TableBody :table="table" />
     <TablePagination :table="table" />
   </div>
