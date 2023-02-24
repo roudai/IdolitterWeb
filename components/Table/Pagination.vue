@@ -6,8 +6,16 @@ const props = defineProps({
   },
 })
 
+const perPage = ref(20)
+const options = [10, 20, 50, 100]
+props.table.setPageSize(20)
+
 const currentPage = (page: number) => {
   return props.table.getState().pagination.pageIndex === page
+}
+
+const changePerPage = () => {
+  props.table.setPageSize(perPage.value)
 }
 </script>
 
@@ -70,4 +78,10 @@ const currentPage = (page: number) => {
       >
     </div>
   </nav>
+  <div style="text-align: center">
+    表示数
+    <select v-model="perPage" class="form-select" aria-label="表示数" @change="changePerPage">
+      <option v-for="option in options" :key="option" :value="option">{{ option }}</option>
+    </select>
+  </div>
 </template>
