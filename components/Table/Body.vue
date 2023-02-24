@@ -17,7 +17,7 @@ const randomView = () => {
 
 randomView()
 
-const globalSearch = debounce(500, (event: Event) => {
+const globalSearch = debounce(250, (event: Event) => {
   props.table.setGlobalFilter((event.target as any).value)
 })
 </script>
