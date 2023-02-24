@@ -1,10 +1,5 @@
 <template>
   <div class="d-flex">
-    <!-- FullTextSearch -->
-    <div class="Header-item">
-      <i-ic-round-search class="Header-icon" />
-    </div>
-
     <!-- Theme Switcher -->
     <details class="details-reset details-overlay">
       <summary class="Header-item" style="cursor: pointer" aria-haspopup="true">
