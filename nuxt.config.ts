@@ -5,6 +5,9 @@ import Components from 'unplugin-vue-components/vite'
 export default defineNuxtConfig({
   routeRules: {
     '/idol': { ssr: false },
+    '/group': { ssr: false },
+    '/ranking': { ssr: false },
+    '/history': { ssr: false },
   },
 
   // https://v3.nuxtjs.org/api/configuration/nuxt.config#typescript
