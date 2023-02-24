@@ -6,9 +6,10 @@ const props = defineProps({
   },
 })
 
-const perPage = ref(20)
 const options = [10, 20, 50, 100]
-props.table.setPageSize(20)
+let perPage = ref(0)
+window.innerHeight < 1080 ? (perPage = ref(10)) : (perPage = ref(20))
+props.table.setPageSize(perPage.value)
 
 const currentPage = (page: number) => {
   return props.table.getState().pagination.pageIndex === page
