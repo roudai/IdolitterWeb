@@ -31,14 +31,36 @@ type User = {
   firstYomi: string
   lastYomi: string
   TwitterID: string
-  profile: string
+  TwitterName: string
   follower: number
   tweet: number
+  certification: string
+  tweetprivate: string
+  TwitterId: string
+  profile: string
+  history: string
+  deleteDay: string
 }
 const output: { [key: string]: User } = idolData.values.reduce(
   (
     acc: { [key: string]: User },
-    [group, lastName, firstName, lastYomi, firstYomi, TwitterID, profile, follower, tweet],
+    [
+      group,
+      lastName,
+      firstName,
+      lastYomi,
+      firstYomi,
+      TwitterID,
+      TwitterName,
+      follower,
+      tweet,
+      certification,
+      tweetprivate,
+      TwitterId,
+      profile,
+      history,
+      deleteDay,
+    ],
     index
   ) => {
     acc[index] = {
@@ -48,9 +70,15 @@ const output: { [key: string]: User } = idolData.values.reduce(
       lastYomi,
       firstYomi,
       TwitterID,
-      profile,
+      TwitterName,
       follower: Number(follower),
       tweet: Number(tweet),
+      certification,
+      tweetprivate,
+      TwitterId,
+      profile,
+      history,
+      deleteDay,
     }
     return acc
   },
@@ -76,6 +104,12 @@ const columns: ColumnDef<User, any>[] = [
   }),
   columnHelper.accessor('tweet', {
     header: () => 'ツイート',
+    cell: (info) => info.getValue(),
+    enableColumnFilter: false,
+    enableGlobalFilter: false,
+  }),
+  columnHelper.accessor('deleteDay', {
+    header: () => '卒業解散予定',
     cell: (info) => info.getValue(),
     enableColumnFilter: false,
     enableGlobalFilter: false,
