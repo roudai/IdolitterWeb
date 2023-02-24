@@ -10,8 +10,6 @@ import {
   getFilteredRowModel,
 } from '@tanstack/vue-table'
 
-let created = ref(false)
-
 // スプレッドシートからデータ取得
 const runtimeConfig = useRuntimeConfig()
 const baseUrl = runtimeConfig.public.baseURL + 'アイドル一覧?'
@@ -105,12 +103,10 @@ const table = useVueTable({
     sorting.value = typeof updaterOrValue === 'function' ? updaterOrValue(sorting.value) : updaterOrValue
   },
 })
-
-created = ref(true)
 </script>
 
 <template>
-  <div v-if="created">
+  <div>
     <h3 class="mb-2">アイドル一覧</h3>
     <TableHead :table="table" />
     <TableBody :table="table" />
