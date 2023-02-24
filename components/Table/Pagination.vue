@@ -4,11 +4,15 @@ const props = defineProps({
     type: Object,
     default: null,
   },
+  perPageShow: {
+    type: Boolean,
+    default: true,
+  },
 })
 
 const options = [10, 20, 50, 100]
 let perPage = ref(0)
-window.innerHeight < 1080 ? (perPage = ref(10)) : (perPage = ref(20))
+window.innerHeight < 1080 || !props.perPageShow ? (perPage = ref(10)) : (perPage = ref(20))
 props.table.setPageSize(perPage.value)
 
 const currentPage = (page: number) => {
@@ -79,7 +83,7 @@ const changePerPage = () => {
       >
     </div>
   </nav>
-  <div style="text-align: center">
+  <div v-show="perPageShow" style="text-align: center">
     表示数
     <select v-model="perPage" class="form-select" aria-label="表示数" @change="changePerPage">
       <option v-for="option in options" :key="option" :value="option">{{ option }}</option>

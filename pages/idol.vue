@@ -36,7 +36,7 @@ type User = {
   tweet: number
   certification: string
   tweetprivate: string
-  TwitterId: string
+  id: string
   profile: string
   history: string
   deleteDay: string
@@ -56,7 +56,7 @@ const output: { [key: string]: User } = idolData.values.reduce(
       tweet,
       certification,
       tweetprivate,
-      TwitterId,
+      id,
       profile,
       history,
       deleteDay,
@@ -75,7 +75,7 @@ const output: { [key: string]: User } = idolData.values.reduce(
       tweet: Number(tweet),
       certification,
       tweetprivate,
-      TwitterId,
+      id,
       profile,
       history,
       deleteDay,
