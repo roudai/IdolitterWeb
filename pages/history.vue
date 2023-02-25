@@ -93,7 +93,7 @@ const table = useVueTable({
 
 <template>
   <div>
-    <h3 class="mb-2">アイドル一覧</h3>
+    <h3 class="mb-2">履歴</h3>
     <TableBody :table="table" />
     <TablePagination :table="table" />
   </div>
