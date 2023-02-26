@@ -1,12 +1,5 @@
 <script setup lang="ts">
-import {
-  getCoreRowModel,
-  useVueTable,
-  ColumnDef,
-  createColumnHelper,
-  getPaginationRowModel,
-  SortingState,
-} from '@tanstack/vue-table'
+import { getCoreRowModel, useVueTable, ColumnDef, createColumnHelper, getPaginationRowModel } from '@tanstack/vue-table'
 
 // スプレッドシートからデータ取得
 const runtimeConfig = useRuntimeConfig()
@@ -50,16 +43,27 @@ const userList = ref<User[]>(Object.values(output))
 
 const columnHelper = createColumnHelper<User>()
 const columns: ColumnDef<User, any>[] = [
-  columnHelper.accessor('group', { header: () => 'グループ', cell: (info) => info.getValue() }),
+  columnHelper.accessor('group', { header: () => 'グループ', cell: (info) => info.getValue(), enableSorting: false }),
   columnHelper.accessor('TwitterID', {
     cell: (info) => h('a', { href: 'https://twitter.com/' + info.getValue(), target: '_blank' }, info.getValue()),
+    enableSorting: false,
   }),
-  columnHelper.accessor('oldFollower', { header: () => 'フォロワー', cell: (info) => info.getValue() }),
-  columnHelper.accessor('newFollower', { header: () => 'ツイート', cell: (info) => info.getValue() }),
-  columnHelper.accessor('followerRanking', { header: () => 'ツイート', cell: (info) => info.getValue() }),
+  columnHelper.accessor('oldFollower', {
+    header: () => 'フォロワー',
+    cell: (info) => info.getValue(),
+    enableSorting: false,
+  }),
+  columnHelper.accessor('newFollower', {
+    header: () => 'ツイート',
+    cell: (info) => info.getValue(),
+    enableSorting: false,
+  }),
+  columnHelper.accessor('followerRanking', {
+    header: () => 'ツイート',
+    cell: (info) => info.getValue(),
+    enableSorting: false,
+  }),
 ]
-
-const sorting = ref<SortingState>([])
 
 // テーブル作成
 const table = useVueTable({
@@ -69,14 +73,6 @@ const table = useVueTable({
   columns,
   getCoreRowModel: getCoreRowModel(),
   getPaginationRowModel: getPaginationRowModel(),
-  state: {
-    get sorting() {
-      return sorting.value
-    },
-  },
-  onSortingChange: (updaterOrValue) => {
-    sorting.value = typeof updaterOrValue === 'function' ? updaterOrValue(sorting.value) : updaterOrValue
-  },
 })
 </script>
 
