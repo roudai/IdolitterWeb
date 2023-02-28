@@ -13,46 +13,107 @@ type User = {
 type dataObject = { [key: string]: string[][] }
 
 // スプレッドシートからデータ取得
-const idolData: dataObject = await getData('取得差分!I1:N201')
+const idolFollowerData: dataObject = await getData('取得差分!I1:N201')
 // ランキングを作成
-const rankData: User[] = createRank(idolData.values)
-const userList = ref<User[]>(Object.values(rankData))
+const rankFollowerData: User[] = createRank(idolFollowerData.values)
+const userFollowerList = ref<User[]>(Object.values(rankFollowerData))
 // テーブル列データ設定
-const columnHelper = createColumnHelper<User>()
-const columns: ColumnDef<User, any>[] = [
-  columnHelper.accessor('rank', { header: () => '順位', cell: (info) => info.getValue(), enableSorting: false }),
-  columnHelper.accessor('TwitterName', {
+const columnFollowerHelper = createColumnHelper<User>()
+const followerColumns: ColumnDef<User, any>[] = [
+  columnFollowerHelper.accessor('rank', {
+    header: () => '順位',
+    cell: (info) => info.getValue(),
+    enableSorting: false,
+  }),
+  columnFollowerHelper.accessor('TwitterName', {
     header: () => 'TwitterName',
     cell: (info) => info.getValue(),
     enableSorting: false,
   }),
-  columnHelper.accessor('TwitterID', {
+  columnFollowerHelper.accessor('TwitterID', {
     cell: (info) => h('a', { href: 'https://twitter.com/' + info.getValue(), target: '_blank' }, info.getValue()),
     enableSorting: false,
   }),
-  columnHelper.accessor('group', { header: () => 'グループ', cell: (info) => info.getValue(), enableSorting: false }),
-  columnHelper.accessor('oldNum', {
+  columnFollowerHelper.accessor('group', {
+    header: () => 'グループ',
+    cell: (info) => info.getValue(),
+    enableSorting: false,
+  }),
+  columnFollowerHelper.accessor('oldNum', {
     header: () => '前フォロワー数',
     cell: (info) => info.getValue(),
     enableSorting: false,
   }),
-  columnHelper.accessor('newNum', {
+  columnFollowerHelper.accessor('newNum', {
     header: () => '後フォロワー数',
     cell: (info) => info.getValue(),
     enableSorting: false,
   }),
-  columnHelper.accessor('increaseNum', {
+  columnFollowerHelper.accessor('increaseNum', {
     header: () => 'フォロワー増加数',
     cell: (info) => info.getValue(),
     enableSorting: false,
   }),
 ]
 // フォロワー増加数ランキングテーブル作成
-const table = useVueTable({
+const followerTable = useVueTable({
   get data() {
-    return userList.value
+    return userFollowerList.value
   },
-  columns,
+  columns: followerColumns,
+  getCoreRowModel: getCoreRowModel(),
+  getPaginationRowModel: getPaginationRowModel(),
+})
+
+// スプレッドシートからデータ取得
+const idolTweetData: dataObject = await getData('取得差分!P1:U201')
+// ランキングを作成
+const rankTweetData: User[] = createRank(idolTweetData.values)
+const userTweetList = ref<User[]>(Object.values(rankTweetData))
+// テーブル列データ設定
+const columnTweetHelper = createColumnHelper<User>()
+const tweetColumns: ColumnDef<User, any>[] = [
+  columnTweetHelper.accessor('rank', {
+    header: () => '順位',
+    cell: (info) => info.getValue(),
+    enableSorting: false,
+  }),
+  columnTweetHelper.accessor('TwitterName', {
+    header: () => 'TwitterName',
+    cell: (info) => info.getValue(),
+    enableSorting: false,
+  }),
+  columnTweetHelper.accessor('TwitterID', {
+    cell: (info) => h('a', { href: 'https://twitter.com/' + info.getValue(), target: '_blank' }, info.getValue()),
+    enableSorting: false,
+  }),
+  columnTweetHelper.accessor('group', {
+    header: () => 'グループ',
+    cell: (info) => info.getValue(),
+    enableSorting: false,
+  }),
+  columnTweetHelper.accessor('oldNum', {
+    header: () => '前ツイート数',
+    cell: (info) => info.getValue(),
+    enableSorting: false,
+  }),
+  columnTweetHelper.accessor('newNum', {
+    header: () => '後ツイート数',
+    cell: (info) => info.getValue(),
+    enableSorting: false,
+  }),
+  columnTweetHelper.accessor('increaseNum', {
+    header: () => 'ツイート数',
+    cell: (info) => info.getValue(),
+    enableSorting: false,
+  }),
+]
+// フォロワー増加数ランキングテーブル作成
+const tweetTable = useVueTable({
+  get data() {
+    return userTweetList.value
+  },
+  columns: tweetColumns,
   getCoreRowModel: getCoreRowModel(),
   getPaginationRowModel: getPaginationRowModel(),
 })
@@ -61,7 +122,11 @@ const table = useVueTable({
 <template>
   <div>
     <h3 class="mb-2">フォロワー増加数ランキング</h3>
-    <TableBody :table="table" />
-    <TablePagination :table="table" :per-page-show="false" />
+    <TableBody :table="followerTable" />
+    <TablePagination :table="followerTable" :per-page-show="false" />
+
+    <h3 class="mb-2">ツイート数ランキング</h3>
+    <TableBody :table="tweetTable" />
+    <TablePagination :table="tweetTable" :per-page-show="false" />
   </div>
 </template>
