@@ -1,21 +1,6 @@
 <script setup lang="ts">
 import { getCoreRowModel, useVueTable, ColumnDef, createColumnHelper, getPaginationRowModel } from '@tanstack/vue-table'
 
-// スプレッドシートからデータ取得
-const runtimeConfig = useRuntimeConfig()
-const baseUrl = runtimeConfig.public.baseURL + '取得差分一覧?'
-const params = {
-  key: runtimeConfig.public.apiKey,
-  range: '取得差分!I1:N301',
-}
-const qyeryParams = new URLSearchParams(params)
-const { data } = await useFetch(baseUrl + qyeryParams)
-
-type dataObject = { [key: string]: string[][] }
-const idolData: dataObject = data.value as dataObject
-idolData.values.shift()
-
-// 取得データを整形
 type User = {
   rank: number
   TwitterName: string
@@ -25,40 +10,14 @@ type User = {
   newNum: number
   increaseNum: number
 }
-const rankData: User[] = []
-let rank = 1
-let rankup = 0
-for (let i = 0; i < idolData.values.length; i++) {
-  if (rank > 100) {
-    break
-  }
-  const oldNum = Number(idolData.values[i][3])
-  const newNum = Number(idolData.values[i][4])
-  const increaseNum = Number(idolData.values[i][5])
-  if (oldNum === 0 || newNum / oldNum >= 3) {
-    continue
-  }
+type dataObject = { [key: string]: string[][] }
 
-  rankData.push({
-    rank,
-    TwitterName: idolData.values[i][2],
-    TwitterID: idolData.values[i][1],
-    group: idolData.values[i][0],
-    oldNum,
-    newNum,
-    increaseNum,
-  })
-
-  if (idolData.values[i][5] === idolData.values[i + 1][5]) {
-    rankup = rankup + 1
-  } else {
-    rank = rank + rankup + 1
-    rankup = 0
-  }
-}
-
+// スプレッドシートからデータ取得
+const idolData: dataObject = await getData('取得差分!I1:N201')
+// ランキングを作成
+const rankData: User[] = createRank(idolData.values)
 const userList = ref<User[]>(Object.values(rankData))
-
+// テーブル列データ設定
 const columnHelper = createColumnHelper<User>()
 const columns: ColumnDef<User, any>[] = [
   columnHelper.accessor('rank', { header: () => '順位', cell: (info) => info.getValue(), enableSorting: false }),
@@ -88,8 +47,7 @@ const columns: ColumnDef<User, any>[] = [
     enableSorting: false,
   }),
 ]
-
-// テーブル作成
+// フォロワー増加数ランキングテーブル作成
 const table = useVueTable({
   get data() {
     return userList.value
