@@ -50,6 +50,7 @@
   },
   "dependencies": {
     "@tanstack/vue-table": "^8.7.9",
+    "firebase": "^9.17.1",
     "nuxt-lodash": "^2.4.1"
   }
 }
